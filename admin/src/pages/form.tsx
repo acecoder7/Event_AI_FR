@@ -17,7 +17,7 @@ export default function Form() {
       });
       
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log("Event Data:", eventData);
         try {
@@ -37,7 +37,7 @@ export default function Form() {
           toast.error("Failed to add event!");
         }
       };
-      
+
     
   return (
     <div>

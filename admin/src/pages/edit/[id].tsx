@@ -17,7 +17,7 @@ export default function EditEvent() {
   });
 
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement> ) => {
     const { name, value } = event.target;
     setEvent((prevState) => ({
       ...prevState,
@@ -25,10 +25,10 @@ export default function EditEvent() {
     }));
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event:React.FormEvent<HTMLFormElement> ) => {
     event.preventDefault();
     try {
-        const form = event.target;
+        const form = event.currentTarget;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
       const res = await fetch(`https://EventBKFB.harshitadeep.repl.co/api/event/${id}`, {

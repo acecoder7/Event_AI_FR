@@ -9,8 +9,20 @@ export default function Dashboard() {
     const router = useRouter();
     const [events, setEvents] = useState([]);
 
+    interface Event {
+      title: string;
+      id: string;
+      desc: string;
+      image_url: string;
+      category: string;
+      venue: string;
+      date: string;
+      time: string;
+      mode: string
+    }
 
-    const handleEdit = (event) => {
+
+    const handleEdit = (event: Event) => {
         router.push(`/edit/${event.id}`);
     };
 
@@ -39,9 +51,9 @@ export default function Dashboard() {
         }
     }
 
-    const handleDelete = async (id) => {
+    const handleDelete = async (event: Event) => {
         try {
-          const res = await fetch(`https://EventBKFB.harshitadeep.repl.co/api/event/${id}`, {
+          const res = await fetch(`https://EventBKFB.harshitadeep.repl.co/api/event/${event.id}`, {
             method: "DELETE"
           });
           toast.success('Event deleted!');
@@ -69,13 +81,13 @@ export default function Dashboard() {
         <button style={{ marginRight: '10px', color: 'navy' }} onClick={logout}> Logout </button>
         <button style={{ marginRight: '10px', color: 'navy' }} onClick={openForm}>Add Event </button>
         <div>
-        {events.map((event) => (
+        {events.map((event: Event) => (
         <div className="event-card" style={{ 
             border: '1px solid #ccc',
             padding: '10px',
             marginBottom: '10px',
             backgroundColor: 'powderblue'
-          }} key={event.id}>
+          }} key={event.id }>
           <h2>{event.title}</h2>
           <img src={event.image_url} style={{ width: '30%', height: '25%' }} alt={event.title}></img>
           <p style={{ fontSize: '18px', marginBottom: '10px' }}>{event.desc}</p>
@@ -87,7 +99,7 @@ export default function Dashboard() {
 
 
           
-          <button style={{ marginRight: '10px', color: 'navy' }} onClick={() => handleDelete(event.id)}>Delete</button>
+          <button style={{ marginRight: '10px', color: 'navy' }} onClick={() => handleDelete(event)}>Delete</button>
           <button style={{ marginRight: '10px', color: 'navy' }} onClick={() => handleEdit(event)}>Edit</button>
         </div>
       ))}
